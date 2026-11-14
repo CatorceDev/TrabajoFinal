@@ -1,5 +1,4 @@
 import { idGenera } from "../helpers/tokens.js";
-import Comprador from "../models/Comprador.js"
 import {correoRegistro} from "../services/correo.js"
 import Comprador from "../models/Comprador.js"
 
@@ -52,29 +51,37 @@ export const registrar = async (req, res, next) =>{
 
 
 //TODO: Confirmar inscripcion del usuario
-export const confirmarInscripcionEnlace = async (req, res)=>{
-    const { token } = req.params
-    //*token valido
-    const comprador = await Comprador.findOne({
-        where: {token}
-    })
+export const confirmarInscripcionEnlace = async (req, res, next) => {
+    try {
+        const { token } = req.params;
 
-    if (!persona ){
-        res.render("login/confirmacion", {
-            pagina: "No se pudo encontrar la cuenta",
-            mensaje: "Lo lamentamos, no se pudo confirmar la cuenta, intentalo de nuevo"
-        })
+        console.log("TOKEN RECIBIDO:", token);
+
+        const comprador = await Comprador.findOne({
+            where: { token }
+        });
+
+        console.log("COMPRADOR ENCONTRADO:", comprador?.email);
+
+        if (!comprador) {
+            return res.status(404).json({
+                message: "No se encontró la cuenta"
+            });
+        }
+
+        comprador.token = null;
+        comprador.verify = true;
+
+        await comprador.save();
+
+        console.log("COMPRADOR ACTUALIZADO:", comprador.verify);
+
+        return res.status(200).json({
+            message: "Cuenta verificada correctamente"
+        });
+
+    } catch (error) {
+        console.error("ERROR AL CONFIRMAR:", error);
+        next(error);
     }
-
-    //*Confirmar la cuenta del usuario
-    persona.token = null
-    persona.confirmar = true
-    await comprador.save()
-
-    res.render("login/confirmacion", {
-        pagina: "Su cuenta se creo exitosamente",
-        mensaje: "Felicidades, el registro se termino exitosamente",
-        enlace: "/"
-    })
-}
-
+};

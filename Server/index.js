@@ -19,6 +19,7 @@ app.use(express.json());
 // Rutas de la API
 app.use("/api/compradores", compradorRoutes);
 app.use("/api/auth", authRoutes)
+console.log("Rutas de autenticacion cargadas")
 app.get("/", (req, res)=>{
   res.json({
     mensaje: "API-REST de Lonja Veracruz",

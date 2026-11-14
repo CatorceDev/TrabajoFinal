@@ -1,0 +1,51 @@
+
+
+.container-emailverify{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    font-family: "Roboto";
+    gap: 30px;
+}
+
+.emailverify-element{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.email-svg{
+    padding: 40px;
+    background-color: var(--white-contrast-color);
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+    border-radius: 50%;
+    color: var(--secondary-color);
+}
+
+.container-emailverify p{
+    color: var(--secondary-color);
+}
+
+.container-emailverify h2{
+    font-size: 3rem;
+    font-family: "Google Sans";
+    font-weight: 500;
+}
+
+.link-login{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    text-decoration: none;
+    border-radius: 20px;
+    justify-content: center;
+}
+
+.link-login:hover{
+    filter: brightness(1.2);
+}

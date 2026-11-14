@@ -16,3 +16,27 @@ export async function registrarComprador (formData){
     if(!response.ok) throw new Error(data.message);
     return data;
 }
+
+export const confirmarCorreo = async (token)=>{
+    try{
+        console.log("Enviando peticion al backend")
+        console.log("TOKEN", token)
+
+        const response = await fetch(
+            `http://localhost:2900/api/auth/confirmarInscripcion/${token}`
+        )
+        console.log("respuesta recibida")
+        const data = await response.json();
+
+        if(!response.ok){
+            throw new Error(data.message || "No se pudo verificar la cuenta")
+        }
+
+        console.log("Respuesta del backend: ", data)
+
+        
+
+    }   catch(error){
+        console.error("Error al confirmar: ", error)
+    }
+}
