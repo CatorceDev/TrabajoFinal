@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import db from "../config/db.js";
+import db from "../config/database.js";
 
 const Comprador = db.define(
   "Comprador",
@@ -9,23 +9,23 @@ const Comprador = db.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    nombre: {
+    name: {
       type: DataTypes.STRING(15),
       allowNull: false,
     },
-    apellido_paterno: {
+    firstLastName: {
       type: DataTypes.STRING(15),
       allowNull: false,
     },
-    apellido_materno: {
+    secondLastName: {
       type: DataTypes.STRING(15),
       allowNull: true,
     },
-    direccion: {
+    address: {
       type: DataTypes.STRING(200),
       allowNull: false,
     },
-    correo: {
+    email: {
       type: DataTypes.STRING(80),
       allowNull: false,
       unique: true,

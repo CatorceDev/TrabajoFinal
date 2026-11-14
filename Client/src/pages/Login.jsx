@@ -1,8 +1,40 @@
 import { useState } from 'react';
 import '../styles/login.css'
+import { registrarComprador } from '../services/compradorServices';
 
-function App(){
+
+function Login(){
     const [mode, setMode] = useState("login");
+    const [formData, setFormData] = useState({
+        name: '',
+        firstLastName: '',
+        secondLastName: '',
+        email: '',
+        address: '',
+        password: '', 
+        confirmPassword: ''
+    })
+
+    const handleChange = (e) =>{
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const handleSubmit = async (e)=>{
+        e.preventDefault();
+        try{
+            const data = await registrarComprador(formData);
+            console.log(data);
+
+        }   catch (error){
+            console.log(error.message)
+        }
+    }
+
+
+
     return(
         <main>
             <div className="container container-info">
@@ -60,27 +92,28 @@ function App(){
                                 </button>
                             </form>
                         ):(
-                            <form method='POST'>
+                            //TODO: 
+                            <form onSubmit={handleSubmit}>
                                 <div className='form-element'>
                                     <label htmlFor="name">Nombre</label>
-                                    <input type="text" name="name" id="name" placeholder='Escribe tu nombre'/>
+                                    <input type="text" name="name" id="name" placeholder='Escribe tu nombre' value={formData.name} onChange={handleChange}/>
                                     <label htmlFor="firstlastname">Apellido</label>
-                                    <input type="text" name="firstlastname" id="firstlastname" placeholder='Escribe tu apellido'/>
+                                    <input type="text" name="firstLastName" id="firstLastName" placeholder='Escribe tu apellido' value={formData.firstLastName} onChange={handleChange}/>
                                     <label htmlFor="secondlastname">Segundo apellido</label>
-                                    <input type="text" name="secondlastname" id="secondlastname" placeholder='Escribe tu segundo apellido'/>
+                                    <input type="text" name="secondLastName" id="secondLastName" placeholder='Escribe tu segundo apellido' value={formData.secondLastName} onChange={handleChange}/>
                                     <label htmlFor="email">Correo electrónico</label>
-                                    <input type="email" name="email" id="email" placeholder='example@example.com'/>
+                                    <input type="email" name="email" id="email" placeholder='example@example.com' value={formData.email} onChange={handleChange}/>
                                     <label htmlFor="text">Direccion</label>
-                                    <input type="text" name="text" id="text" placeholder='Escribe tu direccion'/>
+                                    <input type="text" name="address" id="address" placeholder='Escribe tu direccion' value={formData.address} onChange={handleChange}/>
                                 </div>
                                 <div className='form-element form-element-password'>
                                     <div>
                                         <label htmlFor="password">Contraseña</label>
-                                        <input type="password" name="password" id="password" placeholder='Escribe tu contraseña'/>
+                                        <input type="password" name="password" id="password" placeholder='Escribe tu contraseña' value={formData.password} onChange={handleChange}/>
                                     </div>
                                     <div>
                                         <label htmlFor="confirmPassword">Confirmar contraseña</label>
-                                        <input type="password" name="confirmPassword" id="confirmPassword" placeholder='Confirma tu contraseña'/>
+                                        <input type="password" name="confirmPassword" id="confirmPassword" placeholder='Confirma tu contraseña' value={formData.confirmPassword} onChange={handleChange}/>
                                     </div>
                                 </div>
                                 <button id='login-button'>Entrar a mi cuenta
@@ -94,4 +127,4 @@ function App(){
         </main>
     );
 }
-export default App
+export default Login
