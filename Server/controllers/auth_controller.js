@@ -1,7 +1,10 @@
 import { idGenera } from "../helpers/tokens.js";
 import Comprador from "../models/Comprador.js"
 import {correoRegistro} from "../services/correo.js"
+import Comprador from "../models/Comprador.js"
 
+
+//TODO: Registrar un nuevo usuario
 export const registrar = async (req, res, next) =>{
     try{
         const {name, firstLastName, secondLastName, email, address, password, confirmPassword} = req.body;
@@ -46,3 +49,32 @@ export const registrar = async (req, res, next) =>{
         next(error);
     }
 }
+
+
+//TODO: Confirmar inscripcion del usuario
+export const confirmarInscripcionEnlace = async (req, res)=>{
+    const { token } = req.params
+    //*token valido
+    const comprador = await Comprador.findOne({
+        where: {token}
+    })
+
+    if (!persona ){
+        res.render("login/confirmacion", {
+            pagina: "No se pudo encontrar la cuenta",
+            mensaje: "Lo lamentamos, no se pudo confirmar la cuenta, intentalo de nuevo"
+        })
+    }
+
+    //*Confirmar la cuenta del usuario
+    persona.token = null
+    persona.confirmar = true
+    await comprador.save()
+
+    res.render("login/confirmacion", {
+        pagina: "Su cuenta se creo exitosamente",
+        mensaje: "Felicidades, el registro se termino exitosamente",
+        enlace: "/"
+    })
+}
+
