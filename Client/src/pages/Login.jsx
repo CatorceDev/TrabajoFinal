@@ -25,8 +25,10 @@ function Login(){
     const handleSubmit = async (e)=>{
         e.preventDefault();
         try{
-            const data = await registrarComprador(formData);
-            console.log(data);
+            const response = await registrarComprador(formData);
+            alert(response.message)
+
+            setMode("login")
 
         }   catch (error){
             console.log(error.message)

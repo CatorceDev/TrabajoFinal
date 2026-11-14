@@ -1,5 +1,6 @@
+import { idGenera } from "../helpers/tokens.js";
 import Comprador from "../models/Comprador.js"
-import correoRegistro from "../services/correo.js"
+import {correoRegistro} from "../services/correo.js"
 
 export const registrar = async (req, res, next) =>{
     try{
@@ -21,7 +22,7 @@ export const registrar = async (req, res, next) =>{
             console.log("Correo duplicado")
             return res.status(400).json({error: "Correo invalido"})
         }
-
+        const token = idGenera()
         const nuevo = await Comprador.create({
             name,
             firstLastName,
@@ -29,13 +30,15 @@ export const registrar = async (req, res, next) =>{
             email,
             address,
             password,
-            rol: "comprador"
+            rol: "comprador",
+            token,
+            verify: false
         });
 
         const datos = { name, email, token}
-        correoRegistro(datos)
+        await correoRegistro(datos)
 
-        res.redirect("/")
+        return res.status(201).json({message: "Registro exitoso. Verifica tu correo para activar tu cuenta"})
     } catch (error){
         if(error.name === "SequelizeUniqueConstraintError"){
             return res.status(400).json({error: "El correo ya esta registrado"})
