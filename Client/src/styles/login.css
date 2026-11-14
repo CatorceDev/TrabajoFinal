@@ -1,0 +1,256 @@
+main{
+    display: flex;
+    position: relative;
+    min-height: 100vh;
+}
+
+.container{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto";
+    height: auto;
+}
+
+
+.container-info{
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+}
+
+.container-info:after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../assets/images/background.jpg");
+    opacity: 0.5;
+}
+
+
+.container-info div{
+    z-index: 10000;
+}
+
+.info-element{
+    width: 100%;
+    display: flex;
+    padding: 30px;
+}
+
+
+.info-top{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.info-title{
+    
+}
+
+.info-title h1{
+    font-family: "Google Sans";
+    font-weight: 600;
+}
+
+.info-title p strong{
+    font-family: "Roboto";
+    font-weight: 300;
+}
+
+.info-icon svg{
+    border-radius: 50%;
+    padding: 5px;
+    color: var(--secondary-color);
+    width: 40px;
+    height: 40px;
+    background-color: var(--contrast-color);
+}
+
+.info-center{
+    flex-direction: column;
+    gap: 30px;
+}
+
+.info-tagline{
+    color: var(--contrast-color);
+    font-weight: 400;
+}
+
+.info-tagline p{
+    display: flex;
+    gap: 15px;
+}
+
+.info-slogan{
+    font-family: "Google Sans";
+    font-size: 4.4rem;
+    font-weight: 500;
+    padding-left: 20px;
+}
+
+.info-slogan p span{
+    color: var(--contrast-color);
+}
+
+.info-description{
+    padding-left: 24px;
+    font-weight: 300;
+    width: 80%;
+}
+
+.info-bottom{
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+    font-weight: 400;
+}
+
+.end-slogan{
+    opacity: 0.6;
+}
+
+.container-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.text-welcome{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.welcome-title{
+    font-family: "Roboto";
+    font-weight: 300;
+    font-size: 1rem;
+    color: var(--secondary-color);
+}
+
+.welcome-text{
+    font-family: "Google Sans";
+    font-weight: 500;
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+}
+
+.welcome-instructions{
+    color: var(--text-primary-color);
+}
+
+.select-login{
+    margin-top: 20px;
+    border-radius: 10px;
+    display: flex;
+    padding: 10px;
+    background-color: var(--white-contrast-color);
+    justify-content: center;
+}
+
+.select-login button{
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    font-family: "Roboto";
+    font-weight: 400;
+    color: var(--secondary-color);
+    font-weight: 500;
+    padding: 10px 40px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+.select-login button.selected{
+    background-color: var(--primary-color);
+    
+}
+
+.container-form-content{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    padding: 20px;
+}
+
+
+.container-form-element{
+    margin-top: 40px;
+}
+
+.container-form form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.form-element{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-element label{
+    color: var(--secondary-color);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.form-element input{
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 3px #0003;
+}
+
+.form-element input:focus{
+    outline: none;
+    box-shadow: 0 0 3px var(--secondary-color);
+}
+
+#login-button{
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+#login-button:hover{
+    backdrop-filter: brightness(0.9);
+}
+
+.form-element-password{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.form-element-password input{
+    width: 100%;
+}
+
+.form-element-password div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}

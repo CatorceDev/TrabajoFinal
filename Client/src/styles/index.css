@@ -1,0 +1,39 @@
+:root{
+  --primary-color: #f7f3eb;
+  --secondary-color: #1a4749;
+  --contrast-color: #dfa978;
+  --text-primary-color: #697c7d;
+  --white-contrast-color: #e7e2d7;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+body{
+  background-color: var(--primary-color);
+}
+
+@font-face {
+  font-family: "Google Sans";
+  src: url("../assets/fonts/Google_Sans_Flex/GoogleSansFlex-VariableFont_ROND\,opsz\,slnt\,wdth\,wght.ttf") format("truetype");
+  font-weight: 100 1000;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: "Roboto";
+  src: url("../assets/fonts/Roboto/Roboto-VariableFont_wdth\,wght.ttf") format("truetype");
+  font-weight: 100 1000;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../assets/fonts/Roboto/Roboto-Italic-VariableFont_wdth\,wght.ttf") format("truetype");
+  font-weight: 100 1000;
+  font-style: italic;
+}
