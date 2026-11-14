@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import db from "./config/database.js";
 import compradorRoutes from "./routes/comprador_routes.js";
+import authRoutes from "./routes/auth_routes.js"
 
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.json());
 
 // Rutas de la API
 app.use("/api/compradores", compradorRoutes);
+app.use("/api/auth", authRoutes)
 app.get("/", (req, res)=>{
   res.json({
     mensaje: "API-REST de Lonja Veracruz",

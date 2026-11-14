@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:2900/api/compradores"
+const API_URL = "http://localhost:2900/api/auth"
 
 export async function registrarComprador (formData){
     
