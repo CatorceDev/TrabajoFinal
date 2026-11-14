@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/database.js";
+import { toDefaultValue } from "sequelize/lib/utils";
 
 const Comprador = db.define(
   "Comprador",
@@ -30,6 +31,19 @@ const Comprador = db.define(
       allowNull: false,
       unique: true,
       validate: { isEmail: true },
+    },
+    verify:{
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    rol: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "comprador"
+    },
+    token: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   },
   {
