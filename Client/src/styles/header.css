@@ -36,3 +36,24 @@ header{
 .logo-text small{
     font-weight: 300;
 }
+
+.element-buttons{
+
+}
+
+.link-profile{
+    display: flex;
+    align-items: center;
+}   
+
+.link-profile svg{
+    height: 30px;
+    width: 30px;
+    
+}
+
+.container-profilename{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -2,7 +2,6 @@ const API_URL = "http://localhost:2900/api/comprador"
 
 export async function getComprador (id){
     const token = localStorage.getItem('token')
-    console.log("Procesando datos...")
     const response = await fetch(`${API_URL}/${id}`, {
         method: "GET",
         headers:{
@@ -11,7 +10,6 @@ export async function getComprador (id){
         }
     })
 
-    console.log("datos extraidos")
 
     const data = await response.json()
     
