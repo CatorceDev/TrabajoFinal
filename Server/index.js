@@ -17,7 +17,7 @@ app.use(cors({
 app.use(express.json());
 
 // Rutas de la API
-app.use("/api/compradores", compradorRoutes);
+app.use("/api/comprador", compradorRoutes);
 app.use("/api/auth", authRoutes)
 console.log("Rutas de autenticacion cargadas")
 app.get("/", (req, res)=>{

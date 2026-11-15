@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { verifyCredentials } from "../services/authServices";
+import { verifySesion } from "../services/authServices";
 
 function ProtectedRoute() {
     const [auth, setAuth] = useState(null)
@@ -9,9 +9,10 @@ function ProtectedRoute() {
     useEffect(()=>{
         const comprobarSesion = async () => {
             try{
-                await verifyCredentials()
+                await verifySesion()
                 setAuth(true)
             }   catch(error){
+                localStorage.removeItem("token")
                 setAuth(false)
             }
         }

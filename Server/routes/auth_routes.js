@@ -1,7 +1,7 @@
 import express from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import { confirmarInscripcionEnlace, registrar, verifySignIn } from '../controllers/auth_controller.js'
+import { confirmarInscripcionEnlace, registrar, verifySession, verifySignIn } from '../controllers/auth_controller.js'
 
 const router = express.Router()
 
@@ -9,4 +9,5 @@ const router = express.Router()
 router.post("/nuevo", registrar)
 router.get("/confirmarInscripcion/:token", confirmarInscripcionEnlace)
 router.post("/signin", verifySignIn)
+router.get("/session", verifySession)
 export default router;

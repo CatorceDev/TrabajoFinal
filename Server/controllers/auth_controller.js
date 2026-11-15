@@ -130,3 +130,10 @@ export const verifySignIn = async (req, res, next) =>{
         next(error)
     }
 }
+
+export const verifySession = async (req, res, next) => {
+    return res.status(200).json({
+        message: "Sesion válida",
+        comprador: req.comprador
+    })
+}

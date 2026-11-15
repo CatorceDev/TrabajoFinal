@@ -69,3 +69,20 @@ export const verifyCredentials = async (email, password) =>{
     }
 }
 
+export async function verifySesion(){
+    const token = localStorage.getItem("token")
+
+    if (!token) throw new Error("No existe una sesión");
+
+    const response = await fetch(`${API_URL}/session`,{
+        method: "GET",
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+
+    const data = await response.json()
+
+    if (!response.ok) throw new Error(data.message || "Sesion invalida")
+    console.log(data)
+}
