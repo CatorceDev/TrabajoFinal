@@ -1,7 +1,9 @@
 import { idGenera } from "../helpers/tokens.js";
 import {correoRegistro} from "../services/correo.js"
 import Comprador from "../models/Comprador.js"
-
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+import dotenv from "dotenv"
 
 //TODO: Registrar un nuevo usuario
 export const registrar = async (req, res, next) =>{
@@ -24,6 +26,9 @@ export const registrar = async (req, res, next) =>{
             console.log("Correo duplicado")
             return res.status(400).json({error: "Correo invalido"})
         }
+
+        
+        const passwordHash = await bcrypt.hash(password, 10)
         const token = idGenera()
         const nuevo = await Comprador.create({
             name,
@@ -31,7 +36,7 @@ export const registrar = async (req, res, next) =>{
             secondLastName,
             email,
             address,
-            password,
+            password: passwordHash,
             rol: "comprador",
             token,
             verify: false
@@ -85,3 +90,43 @@ export const confirmarInscripcionEnlace = async (req, res, next) => {
         next(error);
     }
 };
+
+export const verifySignIn = async (req, res, next) =>{
+    try {
+        const { email, password } = req.body
+
+        const comprador = await Comprador.findOne({
+            where: { email }
+        })
+
+        if(!comprador){
+            return res.status(404).json({error: "Credenciales incorrectas"})
+        }
+
+        const coincide = await bcrypt.compare(password, comprador.password)
+
+        if (!coincide){
+            return res.status(404).json({error: "Credenciales incorrectas"})
+        }
+
+        const token = jwt.sign(
+            {
+                id: comprador.codigo_cpr,
+                email: comprador.email,
+                rol: comprador.rol
+            },
+            process.env.JWTSECRET,
+            {
+                expiresIn: "1h"
+            }
+        )
+
+        return res.status(200).json({
+            message: "Inicio de sesion exitoso",
+            token
+        })
+
+    } catch (error) {
+        next(error)
+    }
+}

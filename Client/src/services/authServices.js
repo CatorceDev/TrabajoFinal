@@ -41,19 +41,31 @@ export const confirmarCorreo = async (token)=>{
     }
 }
 
+export const verifyCredentials = async (email, password) =>{
+    try {
+        console.log("Enviando credenciales al backend")
+        console.log(email, password)
+        const response = await fetch(`${API_URL}/signin`, {
+            method: "POST",
+            headers:{
+                "Content-type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        })
 
-export async function verificarSesion(){
-    const token = localStorage.getItem("token")
-    const response = await fetch(`${API_URL}/verificar`,{
-        headers:{
-            Authorization: `Bearer ${token}`
-        }
-    })
+        const data = await response.json()
 
-    const data = await response.json()
+        if(!response.ok) throw new Error(data.error || data.message || "Error al iniciar sesion")
 
-    if (!response.ok){
-        throw new Error (data.message || "Sesion invalida")
+        console.log("Respuesta recibida: ", data)
+        localStorage.setItem("token", data.token)
+        return data;
+    } catch (error) {
+        console.error("Error al iniciar sesion: ", error)
+        throw error;
     }
-    return data
 }
+

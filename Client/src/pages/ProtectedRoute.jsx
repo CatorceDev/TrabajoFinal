@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { verificarSesion } from "../services/authServices";
+import { verifyCredentials } from "../services/authServices";
 
 function ProtectedRoute() {
     const [auth, setAuth] = useState(null)
@@ -9,7 +9,7 @@ function ProtectedRoute() {
     useEffect(()=>{
         const comprobarSesion = async () => {
             try{
-                await verificarSesion()
+                await verifyCredentials()
                 setAuth(true)
             }   catch(error){
                 setAuth(false)
