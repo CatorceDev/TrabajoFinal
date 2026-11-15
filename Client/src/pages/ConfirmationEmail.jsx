@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import '../styles/login.css'
 import '../styles/confirmationEmail.css'
-import { confirmarCorreo } from '../services/compradorServices';
+import { confirmarCorreo } from '../services/authServices';
 import {Link} from "react-router-dom"
 import { useEffect } from 'react';
 

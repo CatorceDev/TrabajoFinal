@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import '../styles/login.css'
-import { registrarComprador } from '../services/compradorServices';
+import { registrarComprador } from '../services/authServices';
 
 
 function Login(){

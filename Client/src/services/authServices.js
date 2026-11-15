@@ -40,3 +40,20 @@ export const confirmarCorreo = async (token)=>{
         console.error("Error al confirmar: ", error)
     }
 }
+
+
+export async function verificarSesion(){
+    const token = localStorage.getItem("token")
+    const response = await fetch(`${API_URL}/verificar`,{
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    })
+
+    const data = await response.json()
+
+    if (!response.ok){
+        throw new Error (data.message || "Sesion invalida")
+    }
+    return data
+}
