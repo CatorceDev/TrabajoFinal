@@ -5,11 +5,14 @@ import { verifySesion } from "../services/authServices";
 
 function ProtectedRoute() {
     const [auth, setAuth] = useState(null)
+    const [usuario, setUsuario] = useState(null)
 
     useEffect(()=>{
         const comprobarSesion = async () => {
             try{
-                await verifySesion()
+                const data = await verifySesion()
+
+                setUsuario(data)
                 setAuth(true)
             }   catch(error){
                 localStorage.removeItem("token")
@@ -26,7 +29,7 @@ function ProtectedRoute() {
         return <Navigate to="/login" replace/>
     }
 
-    return <Outlet/>
+    return <Outlet context={usuario}/>
 }
 
 export default ProtectedRoute;

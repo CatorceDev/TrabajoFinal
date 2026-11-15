@@ -83,6 +83,7 @@ export async function verifySesion(){
 
     const data = await response.json()
 
-    if (!response.ok) throw new Error(data.message || "Sesion invalida")
-    console.log(data)
+    if (!response.ok) throw new Error(data.message || "Sesion invalida");
+    
+    return data
 }
