@@ -1,8 +1,8 @@
-# API-REST de Lonja Veracruz
+# 🐟 API-REST de Lonja Veracruz
 
 Proyecto escolar para la clase de **Programación Web 2**, desarrollado para practicar la creación y el consumo de una API REST. La aplicación combina una interfaz web para compradores con un servidor que gestiona autenticación y datos mediante una base de datos MariaDB.
 
-## Tecnologías
+## 🧰 Tecnologías
 
 - **Cliente:** React, React Router y Vite.
 - **Servidor:** Node.js, Express y Sequelize.
@@ -10,22 +10,22 @@ Proyecto escolar para la clase de **Programación Web 2**, desarrollado para pra
 - **Autenticación:** contraseñas cifradas con bcrypt y tokens JWT.
 - **Correo:** Nodemailer para enviar el enlace de confirmación de registro.
 
-## Estructura del proyecto
+## 📁 Estructura del proyecto
 
 ```text
 Client/   Aplicación React
 Server/   API REST, modelos y conexión a MariaDB
 ```
 
-## Requisitos
+## ✅ Requisitos
 
 - Node.js y npm.
 - MariaDB en ejecución y una base de datos creada para el proyecto.
 - Una cuenta/servidor SMTP configurado si se quiere probar el envío de correos de confirmación.
 
-## Configuración
+## ⚙️ Configuración
 
-### Servidor
+### 🖥️ Servidor
 
 Desde la carpeta del servidor, crea un archivo `.env` a partir de la plantilla:
 
@@ -57,7 +57,7 @@ npm run dev
 
 El servidor intenta conectarse a MariaDB y sincronizar los modelos al iniciar. La API queda disponible normalmente en `http://localhost:2900`.
 
-### Cliente
+### 🌐 Cliente
 
 En otra terminal, desde la raíz del proyecto:
 
@@ -69,7 +69,7 @@ npm run dev
 
 Vite muestra en la terminal la dirección local del cliente (normalmente `http://localhost:5173`). El cliente está configurado para comunicarse con la API en `http://localhost:2900`; el servidor también permite solicitudes desde `http://localhost:5173`.
 
-## Rutas de la API
+## 🔌 Rutas de la API
 
 Todas las respuestas y solicitudes de datos usan JSON, salvo que se indique lo contrario.
 
@@ -88,11 +88,11 @@ Para las rutas protegidas, envía el token en el encabezado:
 Authorization: Bearer <token>
 ```
 
-## Scripts disponibles
+## ▶️ Scripts disponibles
 
 - En `Client`: `npm run dev`, `npm run build`, `npm run lint` y `npm run preview`.
 - En `Server`: `npm run dev` (reinicio con nodemon) y `npm start`.
 
-## Estado del proyecto
+## 🎓 Estado del proyecto
 
 Este proyecto tiene fines educativos y se encuentra en desarrollo. Las rutas descritas corresponden a las que están implementadas actualmente; la interfaz o los modelos que aún no tienen rutas de API no implican que exista un endpoint disponible.
