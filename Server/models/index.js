@@ -1,8 +1,7 @@
-import Usuario from "./Usuario.js";
+import Comprador from "./Comprador.js";
 import Tipo from "./Tipo.js";
 import Lote from "./Lote.js";
 import Especie from "./Especie.js";
-import Comprador from "./Comprador.js";
 import Compra from "./Compra.js";
 import Carrito from "./Carrito.js";
 import Pago from "./Pago.js";
@@ -26,4 +25,4 @@ Comprador.hasMany(Compra, { foreignKey: "codigo_cpr", as: "compras", onDelete: "
 Compra.belongsTo(Comprador, { foreignKey: "codigo_cpr", as: "comprador" });
 
 
-export { Usuario, Tipo, Lote, Especie, Comprador, Compra, Carrito, Pago };
+export { Comprador, Tipo, Lote, Especie, Comprador, Compra, Carrito, Pago };
