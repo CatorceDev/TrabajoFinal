@@ -3,7 +3,7 @@ import Login from './pages/Login.jsx'
 import Dashboard from './pages/Dashboard.jsx'
 import ConfirmationEmail from './pages/ConfirmationEmail.jsx'
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
-import DashboardLayout from "./layouts/DashboardLayout.jsx";
+import RoleLayout from "./layouts/RoleLayout.jsx"
 
 function App() {
 
@@ -24,8 +24,8 @@ function App() {
       <Route
       path="/"
       element= {<ProtectedRoute/>}>
-        <Route element={<DashboardLayout/>}>
-          <Route path="/" element={<Dashboard/>}></Route>
+        <Route element={<RoleLayout/>}>
+          <Route index element={<Dashboard/>} />
         </Route>
       </Route>
     </Routes>

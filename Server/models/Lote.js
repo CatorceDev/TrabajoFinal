@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import db from "../config/db.js";
+import db from "../config/database.js";
 
 const Lote = db.define(
   "Lote",
@@ -8,6 +8,10 @@ const Lote = db.define(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+    },
+    id_epe: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
     kilos: {
       type: DataTypes.DECIMAL(10, 2),

@@ -1,8 +1,8 @@
 import { useOutletContext } from "react-router-dom"
-import { getComprador } from "../services/compradorServices"
 import { useEffect } from "react"
 import { useState } from "react"
 import "../styles/dashboard.css"
+
 
 
 function Dashboard ({context}){
@@ -69,6 +69,9 @@ function Dashboard ({context}){
                                 </select>
                             </div>
                         </form>
+                        <div className="products-avaibles">
+                            
+                        </div>
                     </div>
                 </div>
                 <div className="products-element element-cart">

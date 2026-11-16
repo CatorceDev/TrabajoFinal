@@ -11,8 +11,17 @@ export async function Admin(params) {
     else{
         try {
             //TODO: Verificar si el usuario ya existe para no duplicarlo
-            const existe = await Comprador.findOne({where: adminUser})
-            if (existe) console.log("Usuario administrador configurado");
+            const existe = await Comprador.findOne({where: {email: "admin@lonjaveracruz.mx"}})
+            if (existe) {
+                if (existe.rol !== "admin") {
+                    throw new Error("El correo reservado para el administrador ya pertenece a otro rol");
+                }
+                if (!existe.verify) {
+                    existe.verify = true;
+                    await existe.save();
+                }
+                console.log("Usuario administrador configurado");
+            }
             else{
                 await Comprador.create({
                     name: adminUser,
@@ -21,7 +30,7 @@ export async function Admin(params) {
                     email: "admin@lonjaveracruz.mx",
                     password: adminPassword,
                     rol: "admin",
-                    veri: true,
+                    verify: true,
                     address: "Lonja direction #123"
                 })
                 console.log("Usuario administrador configurado")

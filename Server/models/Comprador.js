@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../config/database.js";
 import { toDefaultValue } from "sequelize/lib/utils";
+import bcrypt from "bcryptjs";
 
 const Comprador = db.define(
   "Comprador",
@@ -53,7 +54,20 @@ const Comprador = db.define(
   {
     tableName: "comprador",
     timestamps: false,
-  }
+    hooks:{
+      beforeCreate: async function (usuario) {
+          const rep = await bcrypt.genSalt(10);
+          usuario.password = await bcrypt.hash(usuario.password, rep);
+        },
+        // solo se vuelve a cifrar si la contraseña cambió
+        beforeUpdate: async function (usuario) {
+          if (usuario.changed("password")) {
+            const rep = await bcrypt.genSalt(10);
+            usuario.password = await bcrypt.hash(usuario.password, rep);
+          }
+        },
+    }
+  },
 );
 
 export default Comprador;

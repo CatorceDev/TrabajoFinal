@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import db from "../config/db.js";
+import db from "../config/database.js";
 
 const Especie = db.define(
   "Especie",
@@ -11,11 +11,6 @@ const Especie = db.define(
     },
     nombre: {
       type: DataTypes.STRING(25),
-      allowNull: false,
-    },
-    id_lte: {
-      // FK -> lote
-      type: DataTypes.INTEGER,
       allowNull: false,
     },
     id_tpo: {

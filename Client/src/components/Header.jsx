@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import "../styles/header.css"
 import { Link } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
-import { getComprador } from "../services/compradorServices";
 import { useState } from "react";
 
 

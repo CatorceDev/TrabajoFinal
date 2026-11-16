@@ -28,7 +28,6 @@ export const registrar = async (req, res, next) =>{
         }
 
         
-        const passwordHash = await bcrypt.hash(password, 10)
         const token = idGenera()
         const nuevo = await Comprador.create({
             name,
@@ -36,7 +35,7 @@ export const registrar = async (req, res, next) =>{
             secondLastName,
             email,
             address,
-            password: passwordHash,
+            password: password,
             rol: "comprador",
             token,
             verify: false
@@ -60,13 +59,9 @@ export const confirmarInscripcionEnlace = async (req, res, next) => {
     try {
         const { token } = req.params;
 
-        console.log("TOKEN RECIBIDO:", token);
-
         const comprador = await Comprador.findOne({
             where: { token }
         });
-
-        console.log("COMPRADOR ENCONTRADO:", comprador?.email);
 
         if (!comprador) {
             return res.status(404).json({
@@ -78,8 +73,6 @@ export const confirmarInscripcionEnlace = async (req, res, next) => {
         comprador.verify = true;
 
         await comprador.save();
-
-        console.log("COMPRADOR ACTUALIZADO:", comprador.verify);
 
         return res.status(200).json({
             message: "Cuenta verificada correctamente"
@@ -95,18 +88,26 @@ export const verifySignIn = async (req, res, next) =>{
     try {
         const { email, password } = req.body
 
+        if (!email || !password) {
+            return res.status(400).json({ error: "Correo y contraseña son obligatorios" });
+        }
+
         const comprador = await Comprador.findOne({
             where: { email }
         })
 
         if(!comprador){
-            return res.status(404).json({error: "Credenciales incorrectas"})
+            return res.status(401).json({error: "Credenciales incorrectas"})
         }
 
         const coincide = await bcrypt.compare(password, comprador.password)
 
         if (!coincide){
-            return res.status(404).json({error: "Credenciales incorrectas"})
+            return res.status(401).json({error: "Credenciales incorrectas"})
+        }
+
+        if (!comprador.verify) {
+            return res.status(403).json({ error: "Verifica tu correo antes de iniciar sesión" });
         }
 
         const token = jwt.sign(
@@ -132,10 +133,28 @@ export const verifySignIn = async (req, res, next) =>{
 }
 
 export const verifySession = async (req, res, next) => {
-    return res.status(200).json({
-        message: "Sesion válida",
-        comprador: {
-            id: req.comprador.id
+    try {
+        const comprador = await Comprador.findByPk(req.comprador.id, {
+            attributes: ["codigo_cpr", "name", "firstLastName", "secondLastName", "email", "rol", "verify"],
+        });
+
+        if (!comprador) {
+            return res.status(401).json({ error: "La cuenta asociada a esta sesión ya no existe" });
         }
-    })
+
+        return res.status(200).json({
+            message: "Sesion válida",
+            comprador: {
+                id: comprador.codigo_cpr,
+                name: comprador.name,
+                firstLastName: comprador.firstLastName,
+                secondLastName: comprador.secondLastName,
+                email: comprador.email,
+                rol: comprador.rol,
+                verify: comprador.verify,
+            },
+        });
+    } catch (error) {
+        return next(error);
+    }
 }

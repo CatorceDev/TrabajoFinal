@@ -27,4 +27,12 @@ function requireAuth (req, res, next){
     }
 }
 
-export {requireAuth, JWTSECRET}
+function requireAdmin(req, res, next) {
+    if (req.comprador?.rol !== "admin") {
+        return res.status(403).json({ error: "Se requieren permisos de administrador" });
+    }
+
+    return next();
+}
+
+export {requireAuth, requireAdmin, JWTSECRET}

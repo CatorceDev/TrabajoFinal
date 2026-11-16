@@ -19,22 +19,14 @@ export async function registrarComprador (formData){
 
 export const confirmarCorreo = async (token)=>{
     try{
-        console.log("Enviando peticion al backend")
-        console.log("TOKEN", token)
-
         const response = await fetch(
             `http://localhost:2900/api/auth/confirmarInscripcion/${token}`
         )
-        console.log("respuesta recibida")
         const data = await response.json();
 
         if(!response.ok){
             throw new Error(data.message || "No se pudo verificar la cuenta")
         }
-
-        console.log("Respuesta del backend: ", data)
-
-        
 
     }   catch(error){
         console.error("Error al confirmar: ", error)
@@ -43,8 +35,6 @@ export const confirmarCorreo = async (token)=>{
 
 export const verifyCredentials = async (email, password) =>{
     try {
-        console.log("Enviando credenciales al backend")
-        console.log(email, password)
         const response = await fetch(`${API_URL}/signin`, {
             method: "POST",
             headers:{
@@ -60,7 +50,6 @@ export const verifyCredentials = async (email, password) =>{
 
         if(!response.ok) throw new Error(data.error || data.message || "Error al iniciar sesion")
 
-        console.log("Respuesta recibida: ", data)
         localStorage.setItem("token", data.token)
         return data;
     } catch (error) {

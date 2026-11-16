@@ -3,14 +3,12 @@ import Tipo from "./Tipo.js";
 import Lote from "./Lote.js";
 import Especie from "./Especie.js";
 import Compra from "./Compra.js";
-import Carrito from "./Carrito.js";
-import Pago from "./Pago.js";
 
 // Asociaciones (según el diseño relacional)
 
-// Lote 1 --- N Especie
-Lote.hasMany(Especie, { foreignKey: "id_lte", as: "especies", onDelete: "RESTRICT" });
-Especie.belongsTo(Lote, { foreignKey: "id_lte", as: "lote" });
+// Especie 1 --- N Lote
+Especie.hasMany(Lote, { foreignKey: "id_epe", as: "lotes", onDelete: "RESTRICT" });
+Lote.belongsTo(Especie, { foreignKey: "id_epe", as: "especie" });
 
 // Tipo 1 --- N Especie
 Tipo.hasMany(Especie, { foreignKey: "id_tpo", as: "especies", onDelete: "RESTRICT" });
@@ -25,4 +23,4 @@ Comprador.hasMany(Compra, { foreignKey: "codigo_cpr", as: "compras", onDelete: "
 Compra.belongsTo(Comprador, { foreignKey: "codigo_cpr", as: "comprador" });
 
 
-export { Comprador, Tipo, Lote, Especie, Comprador, Compra, Carrito, Pago };
+export { Comprador, Tipo, Lote, Especie, Compra };

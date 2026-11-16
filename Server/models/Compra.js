@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import db from "../config/db.js";
+import db from "../config/database.js";
 
 // Cada lote se compra una sola vez: id_cmp es la llave primaria
 // y al mismo tiempo la llave foránea hacia lote.id_lte (relación 1 a 1)
@@ -23,6 +23,14 @@ const Compra = db.define(
     precio_total: {
       type: DataTypes.DECIMAL(12, 2),
       allowNull: false,
+    },
+    estado: {
+      type: DataTypes.STRING(20),
+      allowNull: false,
+      defaultValue: "pendiente",
+      validate: {
+        isIn: [["pendiente", "confirmada", "en_preparacion", "entregada", "cancelada"]],
+      },
     },
     fecha: {
       type: DataTypes.DATE, // DATETIME en MariaDB
