@@ -44,19 +44,38 @@ function Dashboard ({context}){
                     </div>
 
                     <div className="products-avaible">
-                        <span>Selección del Día</span>
+                        <span className="pre-h2">Selección del Día</span>
                         <h2>Disponibles esta mañana</h2>
                         <p><small>Precios por kilogramo · cantidades sujetas a disponibilidad</small></p>
-                        <form action="">
+                        <form action="" className="search-products">
                             <div className="input-search">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24px" width="24px" fill="currentColor"><path d="M19.6,21l-6.3-6.3q-0.75,0.6-1.72,0.95T9.5,16q-2.72,0-4.61-1.89Q3,12.23 3,9.5Q3,6.77 4.89,4.89T9.5,3t4.61,1.89T16,9.5q0,1.1-0.35,2.07T14.7,13.3L21,19.6L19.6,21ZM9.5,14q1.88,0 3.19-1.31T14,9.5T12.69,6.31T9.5,5T6.31,6.31T5,9.5t1.31,3.19T9.5,14Z"/></svg>
-                                <input type="text" name="search" id="search" />
+                                <input type="text" name="search" id="search" placeholder="Busca una especie, presentacion u origen"/>
+                            </div>
+                            <div className="input-filter">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24px" width="24px" fill="currentColor"><path d="M10,18V16h4v2H10ZM6,13V11H18v2H6ZM3,8V6H21V8H3Z"/></svg>
+                                <select name="type-products" id="type-products">
+                                    <option value="">Todos los productos</option>
+                                    <option value="">Productos</option>
+                                </select>
+                            </div>
+                            <div className="order">
+                                <select name="order" id="order">
+                                    <option value="asc-price">Menor Precio</option>
+                                    <option value="desc-price">Mayor Precio</option>
+                                    <option value="asc-name">Nombre: A-Z</option>
+                                    <option value="desc-name">Nombre: Z-A</option>
+                                    <option value="newest">Más recientes</option>
+                                </select>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div className="products-element element-cart">
-                    cart
+                    <div className="cart-container">
+                        <small>Tu lista de hoy</small>
+                        <h3>Carrito</h3>
+                    </div>
                 </div>
             </section>
         </div>

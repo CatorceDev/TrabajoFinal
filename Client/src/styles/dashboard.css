@@ -104,3 +104,84 @@ main{
     color: var(--secondary-color);
     cursor: pointer;
 }
+
+.products-avaible{
+    margin: 30px;
+}
+
+.pre-h2{
+    color: var(--secondary-color);
+    font-weight: 400;
+    font-size: 1.4rem;
+}
+
+.products-avaible h2{
+    font-size: 2rem;
+}
+
+.products-avaible p small{
+    font-size: 1rem;
+    opacity: 0.7;
+}
+
+.search-products{
+    display: flex;
+    gap: 30px;
+    margin: 15px;
+}
+
+.search-products div{
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 3px #000a;
+    padding: 10px 5px;
+}
+
+.input-search{
+    width: 40%;
+}
+
+.search-products div input{
+    width: 100%;
+}
+
+.search-products div input, .search-products div select{
+    background-color: var(--primary-color);
+    border: none;
+    color: #0009;
+}
+
+.search-products div svg{
+    opacity: 0.6;
+}
+
+.element-cart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 30px;
+}
+
+.cart-container{
+    width: 100%;
+    box-shadow: 2px 2px 2px #0007;
+    border: 1px solid #0002;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.cart-container small{
+    color: var(--secondary-color);
+    font-size: 1rem;
+    font-style: italic;
+    opacity: 0.6;
+    padding-left: 5px;
+}
+
+.cart-container h3{
+    color: var(--secondary-color);
+    font-size: 3rem;
+    font-family: "Google Sans";
+    font-weight: 400;
+}
