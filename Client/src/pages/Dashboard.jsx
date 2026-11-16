@@ -13,7 +13,7 @@ function Dashboard ({context}){
 
 
     return(
-        <>
+        <div className="dashboard"> 
             <section className=" hero-container">
                 <div className="hero-element element-top">
                     <span>· Mercado Mayorista · Veracruz</span>
@@ -55,9 +55,11 @@ function Dashboard ({context}){
                         </form>
                     </div>
                 </div>
-                <div className="products-element element-cart"></div>
+                <div className="products-element element-cart">
+                    cart
+                </div>
             </section>
-        </>
+        </div>
     )
 }
 

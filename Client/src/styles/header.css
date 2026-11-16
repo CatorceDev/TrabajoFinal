@@ -3,7 +3,12 @@ header{
     width: 100%;
     font-family: "Roboto";
     justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100000000;
+    background-color: var(--primary-color);
 }
+
 
 
 .header-element a{
@@ -38,7 +43,10 @@ header{
 }
 
 .element-buttons{
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
 }
 
 .link-profile{

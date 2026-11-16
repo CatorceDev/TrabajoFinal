@@ -1,7 +1,12 @@
 main{
     font-family: "Roboto";
     min-height: 100vh;
-    flex-direction: column;
+    position: relative;
+}
+
+.dashboard{
+    width: 100%;
+
 }
 
 .hero-container{
@@ -16,6 +21,8 @@ main{
     background-size: 100%;
     position: relative;
     justify-content: space-evenly;
+    z-index: 10;
+    opacity: 1;
 }
 
 .hero-container::before{
@@ -30,7 +37,7 @@ main{
 
 .hero-element{
     color: var(--primary-color);
-    z-index: 1000000;
+    z-index: 10;
     display:flex;
     gap: 10px;
     padding-left: 50px;
@@ -68,4 +75,32 @@ main{
 
 .element-bottom, .element-top{
     align-items: center;
+}
+
+.products-container{
+    display: flex;
+
+}
+
+.element-products{
+    flex: 1 1 auto;
+}
+
+.element-cart{
+    flex: 1 1 0;
+}
+
+.products-buttons{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.products-buttons button{
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
 }
