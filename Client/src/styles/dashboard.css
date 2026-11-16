@@ -1,6 +1,7 @@
 main{
     font-family: "Roboto";
     min-height: 100vh;
+    flex-direction: column;
 }
 
 .hero-container{
