@@ -1,0 +1,70 @@
+main{
+    font-family: "Roboto";
+    min-height: 100vh;
+}
+
+.hero-container{
+    display: flex;
+    width: 100%;
+    height: 50vh;
+    flex-direction: column;
+    gap: 20px;
+    background-image: url("../assets/images/backgroundDashboard.webp");
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 100%;
+    position: relative;
+    justify-content: space-evenly;
+}
+
+.hero-container::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, var(--secondary-color) 50%, transparent);
+}
+
+.hero-element{
+    color: var(--primary-color);
+    z-index: 1000000;
+    display:flex;
+    gap: 10px;
+    padding-left: 50px;
+}
+
+.hero-element svg{
+    width: 20px;
+    height: 20px;
+}
+
+.element-h1{
+    flex-direction: column;
+}
+
+.element-h1 h1{
+    font-family: "Google Sans";
+    font-weight: 500;
+    font-size: 3rem;
+}
+
+.element-h1 span{
+    display: block;
+    color: var(--contrast-color);
+    font-style: italic;
+}
+
+.element-h1 p strong{
+    font-weight: 300;
+}
+
+.element-bottom p{
+    display: flex;
+    gap: 10px;
+}
+
+.element-bottom, .element-top{
+    align-items: center;
+}

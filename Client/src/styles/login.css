@@ -28,7 +28,7 @@ main{
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("../assets/images/background.jpg");
+    background-image: url("../assets/images/background.webp");
     opacity: 0.5;
 }
 
