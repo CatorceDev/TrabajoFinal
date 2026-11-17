@@ -3,6 +3,9 @@ header{
     width: 100%;
     font-family: "Roboto";
     justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding-inline: clamp(8px, 1.5vw, 28px);
     position: sticky;
     top: 0;
     z-index: 100000000;
@@ -36,6 +39,7 @@ header{
 
 .logo-text span {
     font-family: "Google Sans";
+    font-size: clamp(1rem, 1.2vw, 1.35rem);
 }
 
 .logo-text small{
@@ -64,4 +68,145 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.header-profile-menu {
+    position: relative;
+}
+
+.profile-menu-trigger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border: 0;
+    color: var(--secondary-color);
+    background: var(--primary-color);
+    cursor: pointer;
+    font: inherit;
+}
+
+.profile-menu-trigger:focus-visible {
+    outline: 2px solid var(--contrast-color);
+    outline-offset: 2px;
+}
+
+.profile-menu-chevron {
+    display: inline-block;
+    transition: transform 160ms ease;
+}
+
+.profile-menu-chevron.is-open {
+    transform: rotate(180deg);
+}
+
+.profile-dropdown {
+    display: flex;
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    z-index: 20;
+    flex-direction: column;
+    width: 180px;
+    padding: 5px;
+    border: 1px solid var(--white-contrast-color);
+    border-radius: 8px;
+    background: var(--primary-color);
+}
+
+.profile-dropdown > a,
+.profile-dropdown > button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    border-radius: 5px;
+    color: var(--text-primary-color);
+    background: var(--primary-color);
+    cursor: pointer;
+    font: inherit;
+    font-size: 13px;
+    text-align: left;
+    text-decoration: none;
+}
+
+.profile-dropdown > a:hover,
+.profile-dropdown > button:hover {
+    color: var(--secondary-color);
+    background: var(--white-contrast-color);
+}
+
+.profile-dropdown > button {
+    margin-top: 4px;
+    border-top: 1px solid var(--white-contrast-color);
+}
+
+@media (max-width: 640px) {
+    header {
+        gap: 4px;
+        padding-inline: 8px;
+    }
+
+    .header-element a {
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .logo-icon svg {
+        width: 42px;
+        height: 42px;
+    }
+
+    .logo-text small {
+        display: none;
+    }
+
+    .profile-menu-trigger {
+        gap: 5px;
+        padding: 8px 4px;
+    }
+
+    .container-profilename {
+        max-width: 120px;
+        overflow: hidden;
+        font-size: 12px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .container-profileimg svg {
+        width: 26px;
+        height: 26px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-text span {
+        font-size: 0.95rem;
+    }
+
+    .container-profilename {
+        display: none;
+    }
+
+    .logo-icon svg {
+        width: 38px;
+        height: 38px;
+    }
+}
+
+@media (min-width: 1600px) {
+    header {
+        padding-inline: clamp(28px, 4vw, 80px);
+    }
+
+    .header-element a {
+        gap: 16px;
+        padding: 14px;
+    }
+
+    .container-profileimg svg {
+        width: 36px;
+        height: 36px;
+    }
 }

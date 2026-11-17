@@ -1,11 +1,14 @@
 main{
     display: flex;
+    flex-wrap: wrap;
     position: relative;
     min-height: 100vh;
+    min-height: 100svh;
 }
 
 .container{
     width: 50%;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     font-family: "Roboto";
@@ -88,9 +91,10 @@ main{
 
 .info-slogan{
     font-family: "Google Sans";
-    font-size: 4.4rem;
+    font-size: clamp(2.4rem, 4.4vw, 4.4rem);
     font-weight: 500;
     padding-left: 20px;
+    line-height: 1.08;
 }
 
 .info-slogan p span{
@@ -101,6 +105,8 @@ main{
     padding-left: 24px;
     font-weight: 300;
     width: 80%;
+    max-width: 38rem;
+    line-height: 1.6;
 }
 
 .info-bottom{
@@ -119,7 +125,7 @@ main{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: clamp(16px, 2vw, 36px);
 }
 
 .text-welcome{
@@ -177,7 +183,7 @@ main{
 .container-form-content{
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: min(100%, 620px);
     padding: 20px;
 }
 
@@ -206,6 +212,8 @@ main{
 }
 
 .form-element input{
+    width: 100%;
+    min-width: 0;
     padding: 10px;
     border-radius: 5px;
     border: none;
@@ -251,4 +259,126 @@ main{
     flex-direction: column;
     gap: 10px;
     width: 100%;
+}
+
+@media (min-width: 1600px) {
+    .info-top,
+    .info-bottom {
+        max-width: 1040px;
+        margin-inline: auto;
+    }
+
+    .info-center {
+        max-width: 1040px;
+        margin-inline: auto;
+    }
+
+    .info-slogan {
+        font-size: clamp(4.4rem, 4.6vw, 6.5rem);
+    }
+
+    .info-title h1 {
+        font-size: clamp(2rem, 2vw, 3rem);
+    }
+
+    .container-form-content {
+        max-width: 700px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .container-info,
+    .container-form,
+    .container-emailverify {
+        width: 100%;
+        flex: 1 0 100%;
+    }
+
+    .container-info {
+        min-height: clamp(380px, 64svh, 620px);
+    }
+
+    .info-center {
+        max-width: 760px;
+        margin-inline: auto;
+    }
+
+    .container-form {
+        min-height: 520px;
+    }
+
+    .container-form-content {
+        width: min(100%, 580px);
+    }
+}
+
+@media (max-width: 640px) {
+    .container-info {
+        min-height: 390px;
+    }
+
+    .info-tagline{
+        display: none;
+    }
+
+    .info-bottom{
+        display: none;
+    }
+
+    .info-element {
+        padding: 22px;
+    }
+
+    .info-top {
+        gap: 12px;
+    }
+
+    .info-title h1 {
+        font-size: clamp(1.35rem, 6vw, 1.8rem);
+    }
+
+    .info-slogan {
+        padding-left: 0;
+        font-size: clamp(2rem, 9vw, 3.2rem);
+    }
+
+    .info-description {
+        width: 100%;
+        padding-left: 0;
+    }
+
+    .info-bottom {
+        padding-left: 22px;
+    }
+
+    .container-form {
+        min-height: 0;
+        padding: 24px 16px 36px;
+    }
+
+    .container-form-content {
+        padding: 8px;
+    }
+
+    .welcome-text {
+        font-size: clamp(1.8rem, 8vw, 2.5rem);
+    }
+
+    .select-login {
+        gap: 4px;
+        padding: 6px;
+    }
+
+    .select-login button {
+        padding: 10px 8px;
+        font-size: 0.9rem;
+    }
+
+    .container-form-element {
+        margin-top: 24px;
+    }
+
+    .form-element-password {
+        flex-direction: column;
+    }
 }

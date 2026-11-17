@@ -5,6 +5,10 @@ export async function getCompras() {
     return data.compras;
 }
 
+export function createCompra(compra) {
+    return apiRequest("/compras", { method: "POST", body: compra });
+}
+
 export function updateCompraEstado(id, estado) {
     return apiRequest(`/compras/${id}/estado`, {
         method: "PATCH",

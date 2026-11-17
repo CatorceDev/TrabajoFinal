@@ -1,0 +1,41 @@
+.card-lote{
+    width: 100%;
+    min-width: 0;
+    padding: 10px;
+    box-shadow: 0 0 3px #0004;
+    border-radius: 10px;
+}
+
+.card-lote img{
+    width: 100%;
+    height: clamp(150px, 14vw, 230px);
+    object-fit: cover;
+}
+
+.card-buttons{
+    gap: clamp(8px, 1vw, 16px);
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.card-buttons button{
+    min-width: 0;
+    flex: 1 1 110px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.card-buttons button:hover{
+    background-color: color-mix(in srgb, var(--secondary-color) 80%, transparent);
+}
+
+.card-buttons button:disabled{
+    cursor: not-allowed;
+    opacity: 0.65;
+}

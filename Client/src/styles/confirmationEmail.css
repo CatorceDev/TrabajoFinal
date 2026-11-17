@@ -5,6 +5,8 @@
     justify-content: center;
     align-items: center;
     width: 50%;
+    min-width: 0;
+    padding: clamp(24px, 5vw, 72px);
     font-family: "Roboto";
     gap: 30px;
 }
@@ -12,7 +14,8 @@
 .emailverify-element{
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: clamp(18px, 2vw, 30px);
+    width: min(100%, 560px);
 }
 
 .email-svg{
@@ -30,22 +33,68 @@
 }
 
 .container-emailverify h2{
-    font-size: 3rem;
+    font-size: clamp(2rem, 3.6vw, 3rem);
     font-family: "Google Sans";
     font-weight: 500;
+    line-height: 1.1;
+}
+
+.container-emailverify p{
+    line-height: 1.6;
 }
 
 .link-login{
     display: flex;
     align-items: center;
-    padding: 20px;
+    justify-content: center;
+    gap: 10px;
+    width: fit-content;
+    max-width: 100%;
+    min-height: 48px;
+    padding: 12px 20px;
     background-color: var(--secondary-color);
     color: var(--primary-color);
     text-decoration: none;
     border-radius: 20px;
-    justify-content: center;
 }
 
 .link-login:hover{
     filter: brightness(1.2);
+}
+
+@media (min-width: 1600px) {
+    .container-emailverify {
+        padding: 72px;
+    }
+
+    .emailverify-element {
+        max-width: 680px;
+        gap: 34px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .container-emailverify {
+        min-height: 480px;
+        padding: clamp(28px, 7vw, 64px);
+    }
+}
+
+@media (max-width: 640px) {
+    .container-emailverify {
+        min-height: 420px;
+        padding: 30px 22px;
+    }
+
+    .emailverify-element {
+        gap: 20px;
+    }
+
+    .container-emailverify h2 {
+        font-size: clamp(1.8rem, 9vw, 2.4rem);
+    }
+
+    .link-login {
+        width: 100%;
+    }
 }
