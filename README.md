@@ -1,6 +1,6 @@
-# 🐟 API-REST de Lonja Veracruz
+# 🐟 Lonja de Veracruz
 
-Proyecto escolar para la clase de **Programación Web 2**, desarrollado para practicar la creación y el consumo de una API REST. La aplicación combina una interfaz web para compradores con un servidor que gestiona autenticación y datos mediante una base de datos MariaDB.
+Proyecto escolar para la clase de **Programación Web 2**, desarrollado para practicar la creación y el consumo de una API REST. Incluye una interfaz web para compradores, un panel de administración y un servidor que gestiona autenticación y datos mediante MariaDB.
 
 ## 🧰 Tecnologías
 
@@ -9,6 +9,17 @@ Proyecto escolar para la clase de **Programación Web 2**, desarrollado para pra
 - **Base de datos:** MariaDB.
 - **Autenticación:** contraseñas cifradas con bcrypt y tokens JWT.
 - **Correo:** Nodemailer para enviar el enlace de confirmación de registro.
+- **Documentos PDF:** jsPDF para generar tickets de pedido; la guía administrativa se sirve desde los recursos públicos del cliente.
+
+## 🛒 Funcionalidades
+
+- Registro de compradores con confirmación por correo e inicio de sesión.
+- Catálogo de lotes con búsqueda y filtros para consultar la disponibilidad.
+- Carrito y creación de pedidos. El checkout permite seleccionar un método de pago visual, pero no procesa cobros ni guarda datos de tarjetas.
+- Consulta de pedidos y su estado; cada pedido puede generar un ticket PDF.
+- Panel de administración con resumen, catálogo de especies y tipos, lotes, compradores y pedidos.
+- Administración de estados de pedido, búsqueda y filtros en las listas.
+- Guía de uso del panel en [Client/public/guia-administrador.pdf](Client/public/guia-administrador.pdf), disponible también desde **Ver guía** en el panel.
 
 ## 📁 Estructura del proyecto
 
@@ -80,7 +91,18 @@ Todas las respuestas y solicitudes de datos usan JSON, salvo que se indique lo c
 | `GET` | `/api/auth/confirmarInscripcion/:token` | Público | Confirma el registro con el token enviado por correo. |
 | `POST` | `/api/auth/signin` | Público | Inicia sesión con `email` y `password`; devuelve un JWT. |
 | `GET` | `/api/auth/session` | JWT requerido | Verifica la sesión actual. |
+| `GET` | `/api/comprador` | JWT y rol administrador | Consulta la lista de compradores. |
 | `GET` | `/api/comprador/:id` | JWT requerido | Consulta un comprador por su identificador. |
+| `GET` | `/api/especies`, `/api/especies/:id` | JWT requerido | Consulta especies. |
+| `POST`, `PUT`, `DELETE` | `/api/especies`, `/api/especies/:id` | JWT y rol administrador | Crea, actualiza o elimina especies. |
+| `GET` | `/api/tipos`, `/api/tipos/:id` | JWT requerido | Consulta tipos de especie. |
+| `POST`, `PUT`, `DELETE` | `/api/tipos`, `/api/tipos/:id` | JWT y rol administrador | Crea, actualiza o elimina tipos. |
+| `GET` | `/api/lotes`, `/api/lotes/:id` | JWT requerido | Consulta lotes. |
+| `POST`, `PUT`, `DELETE` | `/api/lotes`, `/api/lotes/:id` | JWT y rol administrador | Crea, actualiza o elimina lotes. |
+| `GET` | `/api/compras`, `/api/compras/:id` | JWT requerido | Consulta pedidos; los compradores ven los propios y administración puede consultar todos. |
+| `POST` | `/api/compras` | JWT requerido | Crea un pedido. |
+| `PATCH` | `/api/compras/:id/estado` | JWT y rol administrador | Actualiza el estado de un pedido. |
+| `DELETE` | `/api/compras/:id` | JWT requerido | Marca el pedido como cancelado; se valida que pertenezca al comprador o que la acción sea administrativa. |
 
 Para las rutas protegidas, envía el token en el encabezado:
 
@@ -95,4 +117,4 @@ Authorization: Bearer <token>
 
 ## 🎓 Estado del proyecto
 
-Este proyecto tiene fines educativos y se encuentra en desarrollo. Las rutas descritas corresponden a las que están implementadas actualmente; la interfaz o los modelos que aún no tienen rutas de API no implican que exista un endpoint disponible.
+Este proyecto tiene fines educativos y se encuentra en desarrollo. Los métodos y niveles de acceso descritos corresponden a las rutas implementadas actualmente. La selección de método de pago en el cliente es solo visual: no existe procesamiento de pagos.
