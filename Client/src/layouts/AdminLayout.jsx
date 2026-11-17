@@ -529,7 +529,9 @@ function AdminLayout() {
                         <span className="help-icon">?</span>
                         <strong>¿Necesitas ayuda?</strong>
                         <p>Consulta la guía de administración.</p>
-                        <button type="button">Ver guía <Icon name="arrow" size={14} /></button>
+                        <button type="button" onClick={() => window.open(`${import.meta.env.BASE_URL}guia-administrador.pdf`, "_blank", "noopener,noreferrer")}>
+                            Ver guía <Icon name="arrow" size={14} />
+                        </button>
                     </div>
                 </div>
             </aside>
