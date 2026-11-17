@@ -19,6 +19,14 @@ function formatCurrency(value) {
     return new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN" }).format(value);
 }
 
+function normalizeSearch(value) {
+    return String(value ?? "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLocaleLowerCase("es-MX")
+        .trim();
+}
+
 function getOrderStatusLabel(status) {
     const labels = {
         pendiente: "Pendiente",
@@ -44,6 +52,9 @@ function Dashboard() {
     const [cartItems, setCartItems] = useState([]);
     const [loadingLots, setLoadingLots] = useState(true);
     const [loadError, setLoadError] = useState("");
+    const [searchText, setSearchText] = useState("");
+    const [typeFilter, setTypeFilter] = useState("");
+    const [sortOrder, setSortOrder] = useState("asc-price");
     const [orders, setOrders] = useState([]);
     const [ordersLoading, setOrdersLoading] = useState(false);
     const [ordersError, setOrdersError] = useState("");
@@ -164,6 +175,41 @@ function Dashboard() {
     }
 
     const availableLots = lotes.filter((lote) => !lote.compra);
+    const availableTypes = [...new Map(
+        availableLots
+            .map((lote) => lote.especie?.tipo)
+            .filter((tipo) => tipo?.id_tpo !== undefined && tipo?.id_tpo !== null)
+            .map((tipo) => [String(tipo.id_tpo), tipo])
+    ).values()].sort((first, second) => first.nombre.localeCompare(second.nombre, "es"));
+    const normalizedSearch = normalizeSearch(searchText);
+    const filteredLots = availableLots
+        .filter((lote) => {
+            const searchableText = [
+                lote.especie?.nombre,
+                lote.especie?.tipo?.nombre,
+                `lote ${lote.id_lte}`,
+                `${lote.kilos} kg`,
+                `${lote.numero_cajas} cajas`,
+            ].filter(Boolean).join(" ");
+            const normalizedLotText = normalizeSearch(searchableText);
+            const matchesSearch = !normalizedSearch || normalizedLotText.includes(normalizedSearch);
+            const lotTypeId = lote.especie?.id_tpo ?? lote.especie?.tipo?.id_tpo;
+            const matchesType = !typeFilter || String(lotTypeId) === typeFilter;
+            return matchesSearch && matchesType;
+        })
+        .sort((first, second) => {
+            if (sortOrder === "asc-price" || sortOrder === "desc-price") {
+                const direction = sortOrder === "asc-price" ? 1 : -1;
+                return (Number(first.precio_kilo_salida) - Number(second.precio_kilo_salida)) * direction;
+            }
+            if (sortOrder === "asc-name" || sortOrder === "desc-name") {
+                const direction = sortOrder === "asc-name" ? 1 : -1;
+                return (first.especie?.nombre || "").localeCompare(second.especie?.nombre || "", "es", { sensitivity: "base" }) * direction;
+            }
+            const firstDate = new Date(first.fecha).getTime();
+            const secondDate = new Date(second.fecha).getTime();
+            return (Number.isNaN(secondDate) ? 0 : secondDate) - (Number.isNaN(firstDate) ? 0 : firstDate);
+        });
     const cartTotal = cartItems.reduce((total, lote) => total + getLotTotal(lote), 0);
 
     return(
@@ -202,20 +248,20 @@ function Dashboard() {
                         <span className="pre-h2">Selección del Día</span>
                         <h2>Disponibles esta mañana</h2>
                         <p><small>Precios por kilogramo · cantidades sujetas a disponibilidad</small></p>
-                        <form action="" className="search-products">
+                        <form className="search-products" onSubmit={(event) => event.preventDefault()}>
                             <div className="input-search">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24px" width="24px" fill="currentColor"><path d="M19.6,21l-6.3-6.3q-0.75,0.6-1.72,0.95T9.5,16q-2.72,0-4.61-1.89Q3,12.23 3,9.5Q3,6.77 4.89,4.89T9.5,3t4.61,1.89T16,9.5q0,1.1-0.35,2.07T14.7,13.3L21,19.6L19.6,21ZM9.5,14q1.88,0 3.19-1.31T14,9.5T12.69,6.31T9.5,5T6.31,6.31T5,9.5t1.31,3.19T9.5,14Z"/></svg>
-                                <input type="text" name="search" id="search" placeholder="Busca una especie, presentacion u origen"/>
+                                <input type="search" name="search" id="search" value={searchText} onChange={(event) => setSearchText(event.target.value)} placeholder="Busca especie, tipo o presentación" aria-label="Buscar lotes"/>
                             </div>
                             <div className="input-filter">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24px" width="24px" fill="currentColor"><path d="M10,18V16h4v2H10ZM6,13V11H18v2H6ZM3,8V6H21V8H3Z"/></svg>
-                                <select name="type-products" id="type-products">
-                                    <option value="">Todos los productos</option>
-                                    <option value="">Productos</option>
+                                <select name="type-products" id="type-products" aria-label="Filtrar por tipo" value={typeFilter} onChange={(event) => setTypeFilter(event.target.value)}>
+                                    <option value="">Todos los tipos</option>
+                                    {availableTypes.map((tipo) => <option key={tipo.id_tpo} value={tipo.id_tpo}>{tipo.nombre}</option>)}
                                 </select>
                             </div>
                             <div className="order">
-                                <select name="order" id="order">
+                                <select name="order" id="order" aria-label="Ordenar lotes" value={sortOrder} onChange={(event) => setSortOrder(event.target.value)}>
                                     <option value="asc-price">Menor Precio</option>
                                     <option value="desc-price">Mayor Precio</option>
                                     <option value="asc-name">Nombre: A-Z</option>
@@ -226,7 +272,7 @@ function Dashboard() {
                         </form>
                         <div className="products-avaibles">
                             {loadError && <p className="dashboard-alert" role="alert">{loadError}</p>}
-                            {loadingLots ? <p className="dashboard-empty-state">Cargando lotes disponibles…</p> : availableLots.length ? availableLots.map((lote) => (
+                            {loadingLots ? <p className="dashboard-empty-state">Cargando lotes disponibles…</p> : filteredLots.length ? filteredLots.map((lote) => (
                                 <ProductAvaible
                                     key={lote.id_lte}
                                     lote={lote}
@@ -234,7 +280,7 @@ function Dashboard() {
                                     onAddToCart={addToCart}
                                     onBuy={(selectedLote) => openCheckout([selectedLote])}
                                 />
-                            )) : !loadError && <p className="dashboard-empty-state">No hay lotes disponibles por el momento.</p>}
+                            )) : !loadError && <p className="dashboard-empty-state">{availableLots.length ? "No hay lotes que coincidan con los filtros." : "No hay lotes disponibles por el momento."}</p>}
                         </div>
                     </div>
                     ) : (
