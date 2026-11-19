@@ -17,6 +17,7 @@ Proyecto escolar para la clase de **Programación Web 2**, desarrollado para pra
 - Catálogo de lotes con búsqueda y filtros para consultar la disponibilidad.
 - Carrito y creación de pedidos. El checkout permite seleccionar un método de pago visual, pero no procesa cobros ni guarda datos de tarjetas.
 - Consulta de pedidos y su estado; cada pedido puede generar un ticket PDF.
+- Reportes PDF por día o periodo de compras realizadas para compradores en **Mis pedidos** y de ventas realizadas para administración en **Reportes**.
 - Panel de administración con resumen, catálogo de especies y tipos, lotes, compradores y pedidos.
 - Administración de estados de pedido, búsqueda y filtros en las listas.
 - Edición del perfil propio (nombre, apellidos, correo, dirección y cambio de contraseña).

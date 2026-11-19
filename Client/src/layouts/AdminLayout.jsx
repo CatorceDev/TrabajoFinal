@@ -5,6 +5,7 @@ import { createLote, deleteLote, updateLote } from "../services/lote.js";
 import { createTipo, deleteTipo, updateTipo } from "../services/tipo.js";
 import { getAdminData } from "../services/adminServices.js";
 import { updateCompraEstado } from "../services/compra.js";
+import SalesReportFilter from "../components/SalesReportFilter.jsx";
 import "../styles/admin-layout.css";
 
 const navigation = [
@@ -586,10 +587,14 @@ function AdminLayout() {
                                     <h1>{activeSection === "Reportes" ? "Reportes" : `Buenos días, ${adminName.split(" ")[0]}`} <span>✦</span></h1>
                                     <p>{activeSection === "Reportes" ? "Una mirada clara al movimiento de la lonja." : "Esto es lo que está pasando hoy en la lonja."}</p>
                                 </div>
-                                <button className="admin-primary-button" type="button" onClick={() => openSpeciesDialog()}>
-                                    <Icon name="plus" size={18} /> Nueva especie
-                                </button>
+                                {activeSection !== "Reportes" && (
+                                    <button className="admin-primary-button" type="button" onClick={() => openSpeciesDialog()}>
+                                        <Icon name="plus" size={18} /> Nueva especie
+                                    </button>
+                                )}
                             </div>
+
+                            {activeSection === "Reportes" && <SalesReportFilter orders={adminData.compras} audience="admin" />}
 
                             <section className="admin-metrics" aria-label="Indicadores del mercado">
                                 <article className="metric-card">

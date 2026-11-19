@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductAvaible from "../components/ProductAvaible.jsx";
+import SalesReportFilter from "../components/SalesReportFilter.jsx";
 import { createCompra, getCompras } from "../services/compra.js";
 import { getLotes } from "../services/lote.js";
 import { generateOrderTicket } from "../utils/generateOrderTicket.js";
@@ -295,28 +296,31 @@ function Dashboard() {
                                     <button type="button" onClick={loadOrders}>Reintentar</button>
                                 </div>
                             ) : orders.length ? (
-                                <div className="orders-list">
-                                    {orders.map((order) => (
-                                        <article className="order-card" key={order.id_cmp}>
-                                            <div className="order-card-heading">
-                                                <strong>Pedido #{order.id_cmp}</strong>
-                                                <span className={`order-status ${order.estado || "desconocido"}`}>{getOrderStatusLabel(order.estado)}</span>
-                                            </div>
-                                            <div className="order-card-details">
-                                                <strong>{order.lote?.especie?.nombre || `Lote #${order.id_cmp}`}</strong>
-                                                <span>{order.lote?.kilos ?? "—"} kg · {order.lote?.numero_cajas ?? "—"} cajas</span>
-                                                <span>Solicitado el {formatOrderDate(order.fecha)}</span>
-                                            </div>
-                                            <div className="order-card-total">
-                                                <span>Total del pedido</span>
-                                                <strong>{formatCurrency(order.precio_total)}</strong>
-                                            </div>
-                                            <button className="order-ticket-button" type="button" disabled={ticketGenerating} onClick={() => downloadTicket(order)} aria-label={`Descargar ticket del pedido ${order.id_cmp}`}>
-                                                {ticketGenerating ? "Generando…" : "Ticket"}
-                                            </button>
-                                        </article>
-                                    ))}
-                                </div>
+                                <>
+                                    <SalesReportFilter orders={orders} audience="buyer" />
+                                    <div className="orders-list">
+                                        {orders.map((order) => (
+                                            <article className="order-card" key={order.id_cmp}>
+                                                <div className="order-card-heading">
+                                                    <strong>Pedido #{order.id_cmp}</strong>
+                                                    <span className={`order-status ${order.estado || "desconocido"}`}>{getOrderStatusLabel(order.estado)}</span>
+                                                </div>
+                                                <div className="order-card-details">
+                                                    <strong>{order.lote?.especie?.nombre || `Lote #${order.id_cmp}`}</strong>
+                                                    <span>{order.lote?.kilos ?? "—"} kg · {order.lote?.numero_cajas ?? "—"} cajas</span>
+                                                    <span>Solicitado el {formatOrderDate(order.fecha)}</span>
+                                                </div>
+                                                <div className="order-card-total">
+                                                    <span>Total del pedido</span>
+                                                    <strong>{formatCurrency(order.precio_total)}</strong>
+                                                </div>
+                                                <button className="order-ticket-button" type="button" disabled={ticketGenerating} onClick={() => downloadTicket(order)} aria-label={`Descargar ticket del pedido ${order.id_cmp}`}>
+                                                    {ticketGenerating ? "Generando…" : "Ticket"}
+                                                </button>
+                                            </article>
+                                        ))}
+                                    </div>
+                                </>
                             ) : <p className="dashboard-empty-state">Todavía no tienes pedidos solicitados.</p>}
                         </div>
                     )}
