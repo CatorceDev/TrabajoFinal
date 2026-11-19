@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard.jsx'
 import ConfirmationEmail from './pages/ConfirmationEmail.jsx'
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import RoleLayout from "./layouts/RoleLayout.jsx"
+import Profile from "./pages/Profile.jsx";
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
       <Route
       path="/"
       element= {<ProtectedRoute/>}>
+        <Route path="profile" element={<Profile />} />
         <Route element={<RoleLayout/>}>
           <Route index element={<Dashboard/>} />
         </Route>

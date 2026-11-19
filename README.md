@@ -19,6 +19,7 @@ Proyecto escolar para la clase de **Programación Web 2**, desarrollado para pra
 - Consulta de pedidos y su estado; cada pedido puede generar un ticket PDF.
 - Panel de administración con resumen, catálogo de especies y tipos, lotes, compradores y pedidos.
 - Administración de estados de pedido, búsqueda y filtros en las listas.
+- Edición del perfil propio (nombre, apellidos, correo, dirección y cambio de contraseña).
 - Guía de uso del panel en [Client/public/guia-administrador.pdf](Client/public/guia-administrador.pdf), disponible también desde **Ver guía** en el panel.
 
 ## 📁 Estructura del proyecto
@@ -93,6 +94,7 @@ Todas las respuestas y solicitudes de datos usan JSON, salvo que se indique lo c
 | `GET` | `/api/auth/session` | JWT requerido | Verifica la sesión actual. |
 | `GET` | `/api/comprador` | JWT y rol administrador | Consulta la lista de compradores. |
 | `GET` | `/api/comprador/:id` | JWT requerido | Consulta un comprador por su identificador. |
+| `PUT` | `/api/comprador/profile` | JWT requerido | Actualiza los datos propios y, opcionalmente, la contraseña; un correo nuevo requiere confirmación. |
 | `GET` | `/api/especies`, `/api/especies/:id` | JWT requerido | Consulta especies. |
 | `POST`, `PUT`, `DELETE` | `/api/especies`, `/api/especies/:id` | JWT y rol administrador | Crea, actualiza o elimina especies. |
 | `GET` | `/api/tipos`, `/api/tipos/:id` | JWT requerido | Consulta tipos de especie. |
